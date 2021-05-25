@@ -79,7 +79,8 @@ func RemoveConnectTimeLoadBalancer(cgroupv2 string) error {
 		}
 	}
 
-	bpf.CleanUpCalicoPins("/sys/fs/bpf/calico_connect4")
+	//bpf.CleanUpCalicoPins("/sys/fs/bpf/calico_connect4")
+	bpf.CleanUpCalicoPins("/var/run/calico/bpf/calico_connect4")
 
 	return nil
 }
@@ -128,11 +129,14 @@ out:
 }
 
 func InstallConnectTimeLoadBalancer(frontendMap, backendMap, rtMap bpf.Map, cgroupv2 string, logLevel string) error {
-	bpfMount, err := bpf.MaybeMountBPFfs()
-	if err != nil {
-		log.WithError(err).Error("Failed to mount bpffs, unable to do connect-time load balancing")
-		return err
-	}
+	/*
+		bpfMount, err := bpf.MaybeMountBPFfs()
+		if err != nil {
+			log.WithError(err).Error("Failed to mount bpffs, unable to do connect-time load balancing")
+			return err
+		}
+	*/
+	bpfMount := "/var/run/calico/bpf"
 
 	cgroupPath, err := ensureCgroupPath(cgroupv2)
 	if err != nil {

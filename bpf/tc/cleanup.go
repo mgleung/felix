@@ -120,7 +120,8 @@ func CleanUpProgramsAndPins() {
 		return nil
 	})
 
-	bpf.CleanUpCalicoPins("/sys/fs/bpf/tc")
+	//bpf.CleanUpCalicoPins("/sys/fs/bpf/tc")
+	bpf.CleanUpCalicoPins("/var/run/calico/bpf/tc")
 }
 
 var tcFiltRegex = regexp.MustCompile(`filter .*? bpf .*? id (\d+)`)

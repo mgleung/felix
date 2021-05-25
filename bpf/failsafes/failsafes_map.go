@@ -45,7 +45,8 @@ type Key struct {
 }
 
 var MapParams = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_fsafes",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_fsafes",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_fsafes",
 	Type:       "lpm_trie",
 	KeySize:    KeySize,
 	ValueSize:  ValueSize,

@@ -230,7 +230,8 @@ func (k BackendValue) AsBytes() []byte {
 }
 
 var FrontendMapParameters = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_nat_fe",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_nat_fe",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_nat_fe",
 	Type:       "lpm_trie",
 	KeySize:    frontendKeySize,
 	ValueSize:  frontendValueSize,
@@ -245,7 +246,8 @@ func FrontendMap(mc *bpf.MapContext) bpf.Map {
 }
 
 var BackendMapParameters = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_nat_be",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_nat_be",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_nat_be",
 	Type:       "hash",
 	KeySize:    backendKeySize,
 	ValueSize:  backendValueSize,
@@ -462,7 +464,8 @@ func (v AffinityValue) AsBytes() []byte {
 
 // AffinityMapParameters describe the AffinityMap
 var AffinityMapParameters = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_nat_aff",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_nat_aff",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_nat_aff",
 	Type:       "lru_hash",
 	KeySize:    affinityKeySize,
 	ValueSize:  affinityValueSize,
@@ -567,7 +570,8 @@ func (v SendRecvMsgValue) String() string {
 
 // SendRecvMsgMapParameters define SendRecvMsgMap
 var SendRecvMsgMapParameters = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_srmsg",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_srmsg",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_srmsg",
 	Type:       "lru_hash",
 	KeySize:    sendRecvMsgKeySize,
 	ValueSize:  sendRecvMsgValueSize,
@@ -576,7 +580,8 @@ var SendRecvMsgMapParameters = bpf.MapParameters{
 }
 
 var CTNATsMapParameters = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_ct_nats",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_ct_nats",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_ct_nats",
 	Type:       "lru_hash",
 	KeySize:    ctNATsMsgKeySize,
 	ValueSize:  sendRecvMsgValueSize,

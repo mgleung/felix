@@ -25,7 +25,8 @@ import (
 )
 
 var MapParams = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_arp",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_arp",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_arp",
 	Type:       "lru_hash",
 	KeySize:    KeySize,
 	ValueSize:  ValueSize,

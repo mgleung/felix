@@ -376,7 +376,8 @@ func (e Value) IsForwardDSR() bool {
 }
 
 var MapParams = bpf.MapParameters{
-	Filename:   "/sys/fs/bpf/tc/globals/cali_v4_ct",
+	//Filename:   "/sys/fs/bpf/tc/globals/cali_v4_ct",
+	Filename:   "/var/run/calico/bpf/tc/globals/cali_v4_ct",
 	Type:       "hash",
 	KeySize:    KeySize,
 	ValueSize:  ValueSize,
