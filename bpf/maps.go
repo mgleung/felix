@@ -279,6 +279,7 @@ func (b *PinnedMap) Open() error {
 	}
 	// FIXME hard-coded dir
 	err = os.MkdirAll("/sys/fs/bpf/tc/globals", 0700)
+	//err := os.MkdirAll("/var/run/calico/bpf/tc/globals", 0700)
 	if err != nil {
 		logrus.WithError(err).Error("Failed create dir")
 		return err
@@ -332,6 +333,7 @@ func (b *PinnedMap) EnsureExists() error {
 		"name", b.versionedName(),
 		"flags", fmt.Sprint(b.Flags),
 	)
+	logrus.WithFields(logrus.Fields{"versionedFilename": b.versionedFilename(), "flags": b.Flags}).Info("creating map")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		logrus.WithField("out", string(out)).Error("Failed to run bpftool")

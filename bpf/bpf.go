@@ -78,6 +78,7 @@ const (
 	sockmapEndpointsMapName    = "calico_sk_endpoints_" + sockmapEndpointsMapVersion
 
 	defaultBPFfsPath = "/sys/fs/bpf"
+	//defaultBPFfsPath = "/var/run/calico/bpf"
 )
 
 var (
@@ -208,6 +209,7 @@ func MaybeMountBPFfs() (string, error) {
 	}
 
 	if !mnt {
+		log.WithFields(log.Fields{"bpffspath": defaultBPFfsPath, "fsBPF": fsBPF, "mnt": mnt}).Info("Attempting to mount BPF fs")
 		err = mountBPFfs(defaultBPFfsPath)
 	} else if !fsBPF {
 		var runfsBPF bool
@@ -244,15 +246,18 @@ func MaybeMountCgroupV2() (string, error) {
 		return "", fmt.Errorf("error checking if %s is a mount: %v", cgroupV2Path, err)
 	}
 
-	fsCgroup, err := isCgroupV2(cgroupV2Path)
+	//fsCgroup, err := isCgroupV2(cgroupV2Path)
+	_, err = isCgroupV2(cgroupV2Path)
 	if err != nil {
 		return "", fmt.Errorf("error checking if %s is CgroupV2: %v", cgroupV2Path, err)
 	}
 
 	if !mnt {
 		err = mountCgroupV2(cgroupV2Path)
-	} else if !fsCgroup {
-		err = fmt.Errorf("something that's not cgroup v2 is already mounted in %s", cgroupV2Path)
+		/*
+			} else if !fsCgroup {
+				err = fmt.Errorf("something that's not cgroup v2 is already mounted in %s", cgroupV2Path)
+		*/
 	}
 
 	return cgroupV2Path, err
@@ -281,6 +286,7 @@ func isMount(path string) (bool, error) {
 		}
 
 		mountPoint := columns[4]
+		//log.WithFields(log.Fields{"mountPoint": mountPoint, "path": path}).Info("Comparing mounts to see if isMount")
 		if filepath.Clean(mountPoint) == filepath.Clean(path) {
 			return true, nil
 		}
@@ -308,6 +314,7 @@ func isCgroupV2(path string) (bool, error) {
 		return false, fmt.Errorf("%s is not mounted", path)
 	}
 
+	log.WithFields(log.Fields{"fsdataType": uint32(fsdata.Type)}).Infof("Cgroup path fsdata hex: %x", uint32(fsdata.Type))
 	return uint32(fsdata.Type) == cgroup2MagicNumber, nil
 }
 

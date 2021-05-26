@@ -133,6 +133,8 @@ func InstallConnectTimeLoadBalancer(frontendMap, backendMap, rtMap bpf.Map, cgro
 		log.WithError(err).Error("Failed to mount bpffs, unable to do connect-time load balancing")
 		return err
 	}
+	//bpfMount := "/var/run/calico/bpf"
+	//bpfMount := "/sys/fs/bpf"
 
 	cgroupPath, err := ensureCgroupPath(cgroupv2)
 	if err != nil {
